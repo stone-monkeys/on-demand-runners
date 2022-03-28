@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   run-test-on-runner:
     machine: true
-    resource_class: crowley-namespace/<< pipeline.id >>
+    resource_class: db-cci-ns/<< pipeline.id >>
     steps:
       - run: echo "Hello World! I am running on a On Demand Runner! - Testing Queue!"
 
