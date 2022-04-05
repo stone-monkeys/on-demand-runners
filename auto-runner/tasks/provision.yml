@@ -1,8 +1,8 @@
 ---
-# Add More Cloud Providers Down the Line
-- name: Configure Provider for AWS
-  include_tasks: provision-aws.yml
-  when: (CLOUD_PROVIDER | lower == 'aws')
+# # Add More Cloud Providers Down the Line
+# - name: Configure Provider for AWS
+#   include_tasks: provision-aws.yml
+#   when: (CLOUD_PROVIDER | lower == 'aws')
 
 - name: Configure Provider for GCP
   include_tasks: provision-gcp.yml
