@@ -1,5 +1,5 @@
 ---
-- name: create a instances
+- name: create a instance
   google.cloud.gcp_compute_instance:
     name: test_object
     machine_type: n1-standard-1
