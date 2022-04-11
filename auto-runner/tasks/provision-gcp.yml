@@ -1,7 +1,7 @@
 ---
 - name: create a disk
   vars:
-      gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
+    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
   gcp_compute_disk:
     name: 'disk-instance'
     size_gb: 50
@@ -16,7 +16,7 @@
   register: disk
 - name: create a address
   vars:
-      gcp_cred_file: {{ GCLOUD_SERVICE_KEY }}
+    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
   gcp_compute_address:
     name: 'address-instance'
     region: us-central1
@@ -29,7 +29,7 @@
   register: address
 - name: create a instance
   vars:
-      gcp_cred_file: {{ GCLOUD_SERVICE_KEY }}
+    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
   gcp_compute_instance:
     state: present
     name: test-vm
