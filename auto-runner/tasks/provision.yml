@@ -6,4 +6,3 @@
 
 - name: Configure Provider for GCP
   include_tasks: provision-gcp.yml
-  when: (CLOUD_PROVIDER | lower == 'gcp')
