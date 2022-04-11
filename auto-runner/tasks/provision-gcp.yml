@@ -51,16 +51,3 @@
 
 - name: Add host to groupname
   add_host: hostname={{ address.address }} groupname=new_instances
-
-
-# - name: Create an instance
-#   hosts: localhost
-#   gather_facts: no
-#   vars:
-#       gcp_project: on-demand-runners
-#       gcp_cred_kind: serviceaccount
-#       gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
-#       zone: "us-central1-a"
-#       region: "us-central1"
-
-#   tasks:
