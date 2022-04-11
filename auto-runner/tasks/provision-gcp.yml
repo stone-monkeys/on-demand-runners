@@ -4,10 +4,10 @@
       name: 'disk-instance'
       size_gb: 50
       source_image: 'projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts'
-      zone: "{{ zone }}"
-      project: "{{ gcp_project }}"
-      auth_kind: "{{ gcp_cred_kind }}"
-      service_account_file: "{{ gcp_cred_file }}"
+      zone: us-central1-a
+      project: on-demand-runners
+      auth_kind: serviceaccount
+      service_account_file: "{{ GCLOUD_SERVICE_KEY }}"
       scopes:
         - https://www.googleapis.com/auth/compute
       state: present
@@ -15,10 +15,10 @@
 - name: create a address
   gcp_compute_address:
       name: 'address-instance'
-      region: "{{ region }}"
-      project: "{{ gcp_project }}"
-      auth_kind: "{{ gcp_cred_kind }}"
-      service_account_file: "{{ gcp_cred_file }}"
+      region: us-central1
+      project: on-demand-runners
+      auth_kind: serviceaccount
+      service_account_file: "{{ GCLOUD_SERVICE_KEY }}"
       scopes:
         - https://www.googleapis.com/auth/compute
       state: present
@@ -38,10 +38,10 @@
               - name: 'External NAT'
                 nat_ip: "{{ address }}"
                 type: 'ONE_TO_ONE_NAT'
-      zone: "{{ zone }}"
-      project: "{{ gcp_project }}"
-      auth_kind: "{{ gcp_cred_kind }}"
-      service_account_file: "{{ gcp_cred_file }}"
+      zone: us-central1-a
+      project: on-demand-runners
+      auth_kind: serviceaccount
+      service_account_file: "{{ GCLOUD_SERVICE_KEY }}"
       scopes:
         - https://www.googleapis.com/auth/compute
   register: instance
@@ -51,3 +51,16 @@
 
 - name: Add host to groupname
   add_host: hostname={{ address.address }} groupname=new_instances
+
+
+# - name: Create an instance
+#   hosts: localhost
+#   gather_facts: no
+#   vars:
+#       gcp_project: on-demand-runners
+#       gcp_cred_kind: serviceaccount
+#       gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
+#       zone: "us-central1-a"
+#       region: "us-central1"
+
+#   tasks:
