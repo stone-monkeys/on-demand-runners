@@ -11,7 +11,7 @@
     zone: us-central1-a
     project: on-demand-runners
     auth_kind: serviceaccount
-    service_account_contents: "{{ GCLOUD_SERVICE_KEY }}"
+    service_account_file: "{{ HOME }}/gcloud-service-key.json"
     scopes:
       - https://www.googleapis.com/auth/compute
     state: present
@@ -24,7 +24,7 @@
     region: us-central1
     project: on-demand-runners
     auth_kind: serviceaccount
-    service_account_contents: "{{ GCLOUD_SERVICE_KEY }}"
+    service_account_file: "{{ HOME }}/gcloud-service-key.json"
     scopes:
       - https://www.googleapis.com/auth/compute
     state: present
@@ -49,7 +49,7 @@
     zone: us-central1-a
     project: on-demand-runners
     auth_kind: serviceaccount
-    service_account_contents: "{{ GCLOUD_SERVICE_KEY }}"
+    service_account_file: "{{ HOME }}/gcloud-service-key.json"
     scopes:
       - https://www.googleapis.com/auth/compute
   register: instance
