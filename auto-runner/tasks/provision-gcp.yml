@@ -1,59 +1,61 @@
 ---
 - name: create a disk
-  vars:
-    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
-  gcp_compute_disk:
-    name: 'disk-instance'
-    size_gb: 50
-    source_image: 'projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-lts'
-    zone: us-central1-a
-    project: on-demand-runners
-    auth_kind: serviceaccount
-    service_account_file: "{{ $GCLOUD_SERVICE_KEY }}"
-    scopes:
-      - https://www.googleapis.com/auth/compute
-    state: present
-  register: disk
-- name: create a address
-  vars:
-    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
-  gcp_compute_address:
-    name: 'address-instance'
-    region: us-central1
-    project: on-demand-runners
-    auth_kind: serviceaccount
-    service_account_file: "{{ $GCLOUD_SERVICE_KEY }}"
-    scopes:
-      - https://www.googleapis.com/auth/compute
-    state: present
-  register: address
-- name: create a instance
-  vars:
-    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
-  gcp_compute_instance:
-    state: present
-    name: test-vm
-    machine_type: n1-standard-1
-    disks:
-      - auto_delete: true
-        boot: true
-        source: "{{ disk }}"
-    network_interfaces:
-        - network: null # use default
-          access_configs:
-            - name: 'External NAT'
-              nat_ip: "{{ address }}"
-              type: 'ONE_TO_ONE_NAT'
-    zone: us-central1-a
-    project: on-demand-runners
-    auth_kind: serviceaccount
-    service_account_file: "{{ $GCLOUD_SERVICE_KEY }}"
-    scopes:
-      - https://www.googleapis.com/auth/compute
-  register: instance
+  debug:
+    msg: "{{ GCLOUD_SERVICE_KEY }}"
+#   vars:
+#     gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
+#   gcp_compute_disk:
+#     name: 'disk-instance'
+#     size_gb: 50
+#     source_image: 'projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-lts'
+#     zone: us-central1-a
+#     project: on-demand-runners
+#     auth_kind: serviceaccount
+#     service_account_file: "{{ $GCLOUD_SERVICE_KEY }}"
+#     scopes:
+#       - https://www.googleapis.com/auth/compute
+#     state: present
+#   register: disk
+# - name: create a address
+#   vars:
+#     gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
+#   gcp_compute_address:
+#     name: 'address-instance'
+#     region: us-central1
+#     project: on-demand-runners
+#     auth_kind: serviceaccount
+#     service_account_file: "{{ $GCLOUD_SERVICE_KEY }}"
+#     scopes:
+#       - https://www.googleapis.com/auth/compute
+#     state: present
+#   register: address
+# - name: create a instance
+#   vars:
+#     gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
+#   gcp_compute_instance:
+#     state: present
+#     name: test-vm
+#     machine_type: n1-standard-1
+#     disks:
+#       - auto_delete: true
+#         boot: true
+#         source: "{{ disk }}"
+#     network_interfaces:
+#         - network: null # use default
+#           access_configs:
+#             - name: 'External NAT'
+#               nat_ip: "{{ address }}"
+#               type: 'ONE_TO_ONE_NAT'
+#     zone: us-central1-a
+#     project: on-demand-runners
+#     auth_kind: serviceaccount
+#     service_account_file: "{{ $GCLOUD_SERVICE_KEY }}"
+#     scopes:
+#       - https://www.googleapis.com/auth/compute
+#   register: instance
 
-- name: Wait for SSH to come up
-  wait_for: host={{ address.address }} port=22 delay=10 timeout=60
+# - name: Wait for SSH to come up
+#   wait_for: host={{ address.address }} port=22 delay=10 timeout=60
 
-- name: Add host to groupname
-  add_host: hostname={{ address.address }} groupname=new_instances
+# - name: Add host to groupname
+#   add_host: hostname={{ address.address }} groupname=new_instances
