@@ -15,7 +15,7 @@
 
 # # Cloud provider you want to work with
 # # Currently only support AWS
-# CLOUD_PROVIDER: "aws"
+# CLOUD_PROVIDER: "gcp"
 
 # # AWS Settings
 # SSH_KEY_NAME:
