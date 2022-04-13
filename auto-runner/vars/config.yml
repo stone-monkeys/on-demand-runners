@@ -32,3 +32,9 @@
 # # 10 Seconds between each retry
 # # 10 sec * 18 = 3 Mins
 # UNTIL_RETRIES_RUNNERS: "18"
+
+# GCLOUD_SERVICE_KEY: "/Users/derry/projects/personal/derry-on-demand-runner/auto-runner/vars/on-demand-runners-3c9a2f7eb6e8.json"
+
+
+
+# #**** USE THIS FILE FOR LOCAL DEV*****
