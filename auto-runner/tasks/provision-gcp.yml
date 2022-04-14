@@ -1,9 +1,5 @@
 ---
 - name: create a disk
-  # debug:
-  #   msg: "{{ GCLOUD_SERVICE_KEY }}"
-  vars:
-    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
   gcp_compute_disk:
     name: 'disk-instance'
     size_gb: 50
@@ -12,26 +8,24 @@
     project: on-demand-runners
     auth_kind: serviceaccount
     service_account_file: "/home/circleci/gcloud-service-key.json"
+    # service_account_file: "/Users/derry/projects/personal/derry-on-demand-runner/auto-runner/vars/on-demand-runners-3c9a2f7eb6e8.json"
     scopes:
       - https://www.googleapis.com/auth/compute
     state: present
   register: disk
 - name: create a address
-  vars:
-    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
   gcp_compute_address:
     name: 'address-instance'
     region: us-central1
     project: on-demand-runners
     auth_kind: serviceaccount
     service_account_file: "/home/circleci/gcloud-service-key.json"
+    # service_account_file: "/Users/derry/projects/personal/derry-on-demand-runner/auto-runner/vars/on-demand-runners-3c9a2f7eb6e8.json"
     scopes:
       - https://www.googleapis.com/auth/compute
     state: present
   register: address
 - name: create a instance
-  vars:
-    gcp_cred_file: "{{ GCLOUD_SERVICE_KEY }}"
   gcp_compute_instance:
     state: present
     name: test-vm
@@ -50,12 +44,19 @@
     project: on-demand-runners
     auth_kind: serviceaccount
     service_account_file: "/home/circleci/gcloud-service-key.json"
+    # service_account_file: "/Users/derry/projects/personal/derry-on-demand-runner/auto-runner/vars/on-demand-runners-3c9a2f7eb6e8.json"
     scopes:
       - https://www.googleapis.com/auth/compute
   register: instance
 
 - name: Wait for SSH to come up
-  wait_for: host={{ address.address }} port=22 delay=10 timeout=60
+  wait_for: host={{ address.address }} port=22 delay=10 timeout=180
 
 - name: Add host to groupname
   add_host: hostname={{ address.address }} groupname=new_instances
+
+- name: Template Compute Dynamic Inventory to only target On Demand Runners
+  template:
+    src: "compute.gcp.yml.j2"
+    dest: "compute_gcp.yml"
+  when: (TEMPLATE_DYNAMIC_INVENTORY | bool == true )
