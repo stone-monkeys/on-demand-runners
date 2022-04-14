@@ -59,3 +59,8 @@
   template:
     src: "compute.gcp.yml.j2"
     dest: "compute_gcp.yml"
+
+- name: Manage new instances
+  hosts: new_instances
+  connection: ssh
+  become: True
