@@ -59,4 +59,3 @@
   template:
     src: "compute.gcp.yml.j2"
     dest: "compute_gcp.yml"
-  when: (TEMPLATE_DYNAMIC_INVENTORY | bool == true )

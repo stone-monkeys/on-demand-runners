@@ -33,3 +33,4 @@
   template:
     src: "aws_ec2.yml.j2"
     dest: "aws_ec2.yml"
+  when: (TEMPLATE_DYNAMIC_INVENTORY | bool == true )
